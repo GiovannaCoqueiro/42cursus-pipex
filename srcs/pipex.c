@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:07:31 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/07/18 07:55:31 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/07/18 09:09:09 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 int	main(int argc, char **argv)
 {
-	char	*infile;
-	char	*outfile;
-	char	*cmd1;
-	char	*cmd2;
+	t_pipex	*pipex;
 
-	if (argc < 5)
+	pipex = NULL;
+	program_call_check(argc, argv, pipex);
+	return (0);
+}
+
+void	program_call_check(int argc, char **argv, t_pipex *pipex)
+{
+	if (argc != 5)
 	{
-		printf("Usage: ./pipex <infile> <cmd1> <cmd2> <outfile> ...\n");
+		printf("Usage: ./pipex <infile> <cmd1> <cmd2> <outfile>\n");
 		exit(1);
 	}
 	if (access(argv[1], F_OK) != 0)
@@ -29,9 +33,8 @@ int	main(int argc, char **argv)
 		perror("Error");
 		exit(2);
 	}
-	infile = argv[1];
-	cmd1 = argv[2];
-	cmd2 = argv[3];
-	outfile = argv[4];
-	return (0);
+	pipex->infile = argv[1];
+	pipex->cmd[0] = argv[2];
+	pipex->cmd[1] = argv[3];
+	pipex->outfile = argv[4];
 }
