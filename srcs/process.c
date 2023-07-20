@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 09:07:31 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/07/20 08:25:34 by gcoqueir         ###   ########.fr       */
+/*   Created: 2023/07/20 08:09:06 by gcoqueir          #+#    #+#             */
+/*   Updated: 2023/07/20 08:21:54 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+void	child_process(int *fd, char **envp, t_pipex *pipex)
 {
-	t_pipex	pipex;
+	dup2(fd[1], STDOUT_FILENO);
+	dup2(pipex->infile, STDIN_FILENO);
+	close(fd[0]);
+	make_cmd(envp, pipex);
+}
 
-	program_call_check(argc, argv);
-	pipex.infile = open(argv[1], O_RDONLY);
-	if (pipex.infile == -1)
-		error_check(2);
-	pipex.outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0777);
-	if (pipex.outfile == -1)
-	{
-		close(pipex.infile);
-		error_check(2);
-	}
-	take_cmd(argc, argv, &pipex);
-	pid_init(envp, &pipex);
-	return (0);
+void	parent_process(int *fd, char **envp, t_pipex *pipex)
+{
+	dup2(fd[0], STDOUT_FILENO);
+	dup2(pipex->infile, STDIN_FILENO);
+	close(fd[1]);
+	make_cmd(envp, pipex);
+}
+
+void	make_cmd(char **envp, t_pipex *pipex)
+{
+
 }

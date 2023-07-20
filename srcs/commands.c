@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 09:07:31 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/07/20 08:25:34 by gcoqueir         ###   ########.fr       */
+/*   Created: 2023/07/20 08:19:24 by gcoqueir          #+#    #+#             */
+/*   Updated: 2023/07/20 08:42:09 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+void	take_cmd(int argc, char **argv, t_pipex *pipex)
 {
-	t_pipex	pipex;
+	int	count;
+	int	index;
 
-	program_call_check(argc, argv);
-	pipex.infile = open(argv[1], O_RDONLY);
-	if (pipex.infile == -1)
-		error_check(2);
-	pipex.outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0777);
-	if (pipex.outfile == -1)
+	count = argc - 2;
+	pipex->cmd = malloc(sizeof(char *) * count);
+	if (pipex->cmd == NULL)
+		error_check(3);
+	index = -1;
+	while (++index < count - 1)
 	{
-		close(pipex.infile);
-		error_check(2);
+		
+		pipex->cmd[index] = argv[index + 2];
 	}
-	take_cmd(argc, argv, &pipex);
-	pid_init(envp, &pipex);
-	return (0);
+	pipex->cmd[index] = NULL;
 }
