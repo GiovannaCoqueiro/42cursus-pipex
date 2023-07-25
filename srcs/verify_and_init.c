@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 08:07:49 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/07/20 08:26:33 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:43:26 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	program_call_check(int argc, char **argv)
 		exit(1);
 	}
 	if (access(argv[1], F_OK) != 0 || access(argv[1], R_OK) != 0)
-		error_check(2);
+		error_check(1);
 }
 
 void	pid_init(char **envp, t_pipex *pipex)
@@ -34,11 +34,15 @@ void	pid_init(char **envp, t_pipex *pipex)
 		if (pid == 0)
 			child_process(fd, envp, pipex);
 		else
-			error_check(5);
-		parent_process(fd, envp, pipex);
+			error_check(1);
+		pid = fork();
+		if (pid == 0)
+			parent_process(fd, envp, pipex);
+		else
+			error_check(1);
 	}
 	else
-		error_check(4);
+		error_check(1);
 }
 
 void	error_check(int i)

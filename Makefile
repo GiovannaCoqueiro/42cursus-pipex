@@ -6,7 +6,7 @@
 #    By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 08:58:42 by gcoqueir          #+#    #+#              #
-#    Updated: 2023/07/20 08:26:10 by gcoqueir         ###   ########.fr        #
+#    Updated: 2023/07/25 07:21:20 by gcoqueir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT)/libft.a -o $(NAME)
+	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT)/libft.a -o $(NAME)
 
 bonus: all
 

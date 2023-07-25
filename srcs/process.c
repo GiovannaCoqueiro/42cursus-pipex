@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 08:09:06 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/07/20 08:21:54 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:41:14 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	parent_process(int *fd, char **envp, t_pipex *pipex)
 	make_cmd(envp, pipex);
 }
 
-void	make_cmd(char **envp, t_pipex *pipex)
-{
+// void	make_cmd(char **envp, t_pipex *pipex)
+// {
 
-}
+// }

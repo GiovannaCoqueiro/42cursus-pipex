@@ -6,26 +6,18 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 08:19:24 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/07/20 08:42:09 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:40:05 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	take_cmd(int argc, char **argv, t_pipex *pipex)
+void	take_paths(char **envp, t_pipex *pipex)
 {
-	int	count;
-	int	index;
+	int	i;
 
-	count = argc - 2;
-	pipex->cmd = malloc(sizeof(char *) * count);
-	if (pipex->cmd == NULL)
-		error_check(3);
-	index = -1;
-	while (++index < count - 1)
-	{
-		
-		pipex->cmd[index] = argv[index + 2];
-	}
-	pipex->cmd[index] = NULL;
+	i = 0;
+	while (envp[i] != NULL && ft_strncmp("PATH", envp[i], 4) != 0)
+		i++;
+	pipex->all_paths = ft_split(&envp[i][5], ':');
 }
