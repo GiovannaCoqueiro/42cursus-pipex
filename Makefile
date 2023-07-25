@@ -6,7 +6,7 @@
 #    By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 08:58:42 by gcoqueir          #+#    #+#              #
-#    Updated: 2023/07/25 07:21:20 by gcoqueir         ###   ########.fr        #
+#    Updated: 2023/07/25 13:07:36 by gcoqueir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ INC = ./include
 LIBFT = ./libft
 RM = rm -f
 FILES = srcs/pipex.c \
-		srcs/verify_and_init.c \
 		srcs/commands.c \
 		srcs/process.c
 OBJS = $(FILES:.c=.o)
