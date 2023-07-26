@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:07:31 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/07/25 13:07:20 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/07/26 09:33:16 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,8 @@ int	main(int argc, char **argv, char **envp)
 		error_check(1);
 	}
 	take_paths(envp, &pipex);
-	// pid_init(envp, &pipex);
-
-
-
-
-	int i = -1;
-	while (pipex.all_paths[++i] != NULL)
-		free(pipex.all_paths[i]);
-	free(pipex.all_paths);
+	pid_init(argv, &pipex);
+	free_tab(pipex.all_paths);
 	return (0);
 }
 
