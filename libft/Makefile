@@ -6,7 +6,7 @@
 #    By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/04 15:07:53 by gcoqueir          #+#    #+#              #
-#    Updated: 2023/07/26 07:51:24 by gcoqueir         ###   ########.fr        #
+#    Updated: 2023/07/26 13:46:31 by gcoqueir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -I../include
 RM = rm -f
 FILES = ft_strlen.c ft_strchr.c ft_strncmp.c ft_split.c ft_strdup.c \
-		ft_memcpy.c ft_strjoin.c
+		ft_memcpy.c ft_strjoin.c ft_putstr_fd.c ft_putendl_fd.c
 OBJS = $(FILES:.c=.o)
 
 all: $(NAME)

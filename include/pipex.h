@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:02:03 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/07/26 12:41:44 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/07/26 13:19:37 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ typedef struct s_pipex
 	char	**all_paths;
 }			t_pipex;
 
-void	program_call_check(int argc, char **argv);
+int		program_call_check(int argc, char **argv);
 void	take_paths(char **envp, t_pipex *pipex);
-
 
 void	pid_init(char **argv, char **envp, t_pipex *pipex);
 void	child_process(int *fd, char **argv, char **envp, t_pipex *pipex);
@@ -41,6 +40,6 @@ void	parent_process(int *fd, char **argv, char **envp, t_pipex *pipex);
 void	make_cmd(char **envp, char *command, t_pipex *pipex);
 
 void	free_tab(char **tab);
-void	error_check(int i);
+void	error_check(t_pipex *pipex);
 
 #endif

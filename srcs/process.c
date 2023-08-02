@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 08:09:06 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/07/26 12:36:29 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/02 13:16:50 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ void	pid_init(char **argv, char **envp, t_pipex *pipex)
 		if (pid == 0)
 			child_process(fd, argv, envp, pipex);
 		else if (pid == -1)
-			error_check(1);
+			error_check(pipex);
 		waitpid(pid, NULL, 0);
 		parent_process(fd, argv, envp, pipex);
-		close(fd[0]);
-		close(fd[1]);
 	}
 	else
-		error_check(1);
+		error_check(pipex);
 }
 
 void	child_process(int *fd, char **argv, char **envp, t_pipex *pipex)
@@ -43,8 +41,8 @@ void	child_process(int *fd, char **argv, char **envp, t_pipex *pipex)
 
 void	parent_process(int *fd, char **argv, char **envp, t_pipex *pipex)
 {
-	dup2(fd[0], STDOUT_FILENO);
-	dup2(pipex->infile, STDIN_FILENO);
+	dup2(fd[0], STDIN_FILENO);
+	dup2(pipex->outfile, STDOUT_FILENO);
 	close(fd[1]);
 	make_cmd(envp, argv[3], pipex);
 }
@@ -53,7 +51,6 @@ void	make_cmd(char **envp, char *command, t_pipex *pipex)
 {
 	int		i;
 	char	*temp;
-
 
 	pipex->cmd = ft_split(command, ' ');
 	i = -1;
@@ -65,7 +62,7 @@ void	make_cmd(char **envp, char *command, t_pipex *pipex)
 		free(temp);
 	}
 	if (execve(temp, pipex->cmd, envp) == -1)
-		error_check(1);
+		error_check(pipex);
 	free(temp);
 	free_tab(pipex->cmd);
 }
