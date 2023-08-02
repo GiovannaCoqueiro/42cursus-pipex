@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   print_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 09:17:52 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/05/05 09:17:53 by gcoqueir         ###   ########.fr       */
+/*   Created: 2023/06/12 08:50:05 by gcoqueir          #+#    #+#             */
+/*   Updated: 2023/06/12 08:50:12 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include "libft.h"
+
+int	print_str(char *str)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	int	count;
+
+	if (str == NULL)
+		return (print_str("(null)"));
+	count = 0;
+	while (str[count] != '\0')
+	{
+		print_char(str[count]);
+		count++;
+	}
+	return (count);
 }

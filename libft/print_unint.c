@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   print_unint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 09:18:19 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/05/05 09:18:20 by gcoqueir         ###   ########.fr       */
+/*   Created: 2023/06/12 08:50:26 by gcoqueir          #+#    #+#             */
+/*   Updated: 2023/06/12 08:50:33 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+int	print_unint(unsigned int nbr)
 {
-	size_t	count;
+	int	count;
 
 	count = 0;
-	while (count < n)
-		((unsigned char *)s)[count++] = c;
-	return (s);
+	if (nbr > 9)
+		count += print_unint(nbr / 10);
+	count += print_char((nbr % 10) + '0');
+	return (count);
 }

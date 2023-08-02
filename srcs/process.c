@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 08:09:06 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/02 13:16:50 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:38:31 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	pid_init(char **argv, char **envp, t_pipex *pipex)
 		if (pid == 0)
 			child_process(fd, argv, envp, pipex);
 		else if (pid == -1)
-			error_check(pipex);
+			error_check(1, pipex);
 		waitpid(pid, NULL, 0);
 		parent_process(fd, argv, envp, pipex);
 	}
 	else
-		error_check(pipex);
+		error_check(1, pipex);
 }
 
 void	child_process(int *fd, char **argv, char **envp, t_pipex *pipex)
@@ -54,6 +54,9 @@ void	make_cmd(char **envp, char *command, t_pipex *pipex)
 
 	pipex->cmd = ft_split(command, ' ');
 	i = -1;
+	while (pipex->cmd[++i] != NULL)
+		pipex->cmd[i] = ft_strtrim(pipex->cmd[i], "'");
+	i = -1;
 	while (pipex->all_paths[++i] != NULL)
 	{
 		temp = ft_strjoin(pipex->all_paths[i], pipex->cmd[0]);
@@ -62,7 +65,7 @@ void	make_cmd(char **envp, char *command, t_pipex *pipex)
 		free(temp);
 	}
 	if (execve(temp, pipex->cmd, envp) == -1)
-		error_check(pipex);
+		error_check(127, pipex);
 	free(temp);
 	free_tab(pipex->cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:07:31 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/02 15:24:29 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:40:42 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,19 @@ int	main(int argc, char **argv, char **envp)
 	if (program_call_check(argc, argv) == 1)
 	{
 		pipex.infile = open(argv[1], O_RDONLY);
-		if (pipex.infile == -1)
-			error_check(NULL);
-		pipex.outfile = open(argv[argc - 1], O_TRUNC | O_CREAT
-				| O_WRONLY, 0777);
-		if (pipex.outfile == -1)
+		if (pipex.infile != -1)
 		{
-			close(pipex.infile);
-			error_check(NULL);
+			pipex.outfile = open(argv[argc - 1], O_TRUNC | O_CREAT
+					| O_WRONLY, 0777);
+			if (pipex.outfile == -1)
+			{
+				close(pipex.infile);
+				error_check(1, NULL);
+			}
+			take_paths(envp, &pipex);
+			pid_init(argv, envp, &pipex);
+			free_tab(pipex.all_paths);
 		}
-		take_paths(envp, &pipex);
-		pid_init(argv, envp, &pipex);
-		free_tab(pipex.all_paths);
 	}
 	return (0);
 }
@@ -43,7 +44,7 @@ int	program_call_check(int argc, char **argv)
 		return (0);
 	}
 	if (access(argv[1], F_OK) != 0 || access(argv[1], R_OK) != 0)
-		error_check(NULL);
+		return (0);
 	return (1);
 }
 
@@ -82,7 +83,7 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	error_check(t_pipex *pipex)
+void	error_check(int i, t_pipex *pipex)
 {
 	if (pipex != NULL)
 	{
@@ -92,5 +93,5 @@ void	error_check(t_pipex *pipex)
 			free_tab(pipex->cmd);
 	}
 	perror("Error");
-	exit(1);
+	exit(i);
 }

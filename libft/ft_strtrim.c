@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:17:01 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/05/05 12:17:02 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:31:49 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	ft_memcpy((void *)str, (void *)&s1[start], size);
 	str[size] = '\0';
+	free((void *)s1);
 	return (str);
 }

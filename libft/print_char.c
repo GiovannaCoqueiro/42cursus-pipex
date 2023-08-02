@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   print_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 09:18:07 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/05/05 09:18:08 by gcoqueir         ###   ########.fr       */
+/*   Created: 2023/06/12 08:47:12 by gcoqueir          #+#    #+#             */
+/*   Updated: 2023/06/12 08:47:23 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	print_char(char c)
 {
-	const unsigned char	*p1;
-	const unsigned char	*p2;
-	size_t				c;
-
-	if (n <= 0)
-		return (0);
-	p1 = (const unsigned char *)s1;
-	p2 = (const unsigned char *)s2;
-	c = 0;
-	while (c < n - 1 && p1[c] == p2[c])
-		c++;
-	return (p1[c] - p2[c]);
+	write (1, &c, 1);
+	return (1);
 }
