@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:07:31 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/07 08:15:34 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/07 08:33:28 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
-	if (program_call_check(argc, argv) == 1)
+	if (argc == 5)
 	{
 		pipex.infile = open(argv[1], O_RDONLY);
 		if (pipex.infile != -1)
@@ -32,20 +32,12 @@ int	main(int argc, char **argv, char **envp)
 			pid_init(argv, envp, &pipex);
 			free_tab(pipex.all_paths);
 		}
+		else
+			ft_putendl_fd("Error: No such file or directory", 2);
 	}
+	else
+		ft_putendl_fd("Usage: ./pipex <infile> <cmd1> <cmd2> <outfile>", 2);
 	return (0);
-}
-
-int	program_call_check(int argc, char **argv)
-{
-	if (argc != 5)
-	{
-		ft_printf("Usage: ./pipex <infile> <cmd1> <cmd2> <outfile>\n");
-		return (0);
-	}
-	if (access(argv[1], F_OK) != 0 || access(argv[1], R_OK) != 0)
-		return (0);
-	return (1);
 }
 
 void	take_paths(char **envp, t_pipex *pipex)
@@ -92,6 +84,9 @@ void	error_check(int i, t_pipex *pipex)
 		if (pipex->cmd != NULL)
 			free_tab(pipex->cmd);
 	}
-	perror("Error");
-	exit(i);
+	if (i == 2)
+		ft_putendl_fd("Error: command not found", 2);
+	else
+		perror("Error");
+	exit(1);
 }
