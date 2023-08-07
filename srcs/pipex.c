@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:07:31 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/07 08:33:28 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/07 13:39:23 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,5 @@ void	error_check(int i, t_pipex *pipex)
 		ft_putendl_fd("Error: command not found", 2);
 	else
 		perror("Error");
-	exit(1);
+	exit(EXIT_FAILURE);
 }

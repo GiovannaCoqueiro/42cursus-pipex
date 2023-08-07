@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 08:09:06 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/07 08:21:26 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/07 14:28:20 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,15 @@ void	pid_init(char **argv, char **envp, t_pipex *pipex)
 	int		fd[2];
 	pid_t	pid;
 
-	if (pipe(fd) != -1)
-	{
-		pid = fork();
-		if (pid == 0)
-			child_process(fd, argv, envp, pipex);
-		else if (pid == -1)
-			error_check(1, pipex);
-		waitpid(pid, NULL, 0);
-		parent_process(fd, argv, envp, pipex);
-	}
-	else
+	if (pipe(fd) == -1)
 		error_check(1, pipex);
+	pid = fork();
+	if (pid == -1)
+		error_check(1, pipex);
+	if (pid == 0)
+		child_process(fd, argv, envp, pipex);
+	waitpid(pid, NULL, WNOHANG);
+	parent_process(fd, argv, envp, pipex);
 }
 
 void	child_process(int *fd, char **argv, char **envp, t_pipex *pipex)
@@ -57,6 +54,9 @@ void	make_cmd(char **envp, char *command, t_pipex *pipex)
 	while (pipex->cmd[++i] != NULL)
 		pipex->cmd[i] = ft_strtrim(pipex->cmd[i], "'");
 	i = -1;
+	if (ft_strchr(pipex->cmd[0], '/') != NULL)
+		if (execve(pipex->cmd[0], pipex->cmd, envp) == -1)
+			error_check(1, pipex);
 	while (pipex->all_paths[++i] != NULL)
 	{
 		temp = ft_strjoin(pipex->all_paths[i], pipex->cmd[0]);
