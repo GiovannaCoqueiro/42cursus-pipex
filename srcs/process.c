@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 08:09:06 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/02 16:38:31 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/07 08:17:56 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,15 @@ void	make_cmd(char **envp, char *command, t_pipex *pipex)
 	{
 		temp = ft_strjoin(pipex->all_paths[i], pipex->cmd[0]);
 		if (access(temp, F_OK) == 0)
-			break ;
+		{
+			if (execve(temp, pipex->cmd, envp) == -1)
+			{
+				free(temp);
+				error_check(1, pipex);
+			}
+		}
 		free(temp);
 	}
-	if (execve(temp, pipex->cmd, envp) == -1)
-		error_check(127, pipex);
-	free(temp);
-	free_tab(pipex->cmd);
+	if (pipex->all_paths[i] == NULL)
+		error_check(1, pipex);
 }

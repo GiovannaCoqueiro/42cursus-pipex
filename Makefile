@@ -6,21 +6,20 @@
 #    By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 08:58:42 by gcoqueir          #+#    #+#              #
-#    Updated: 2023/08/02 13:27:10 by gcoqueir         ###   ########.fr        #
+#    Updated: 2023/08/07 06:59:40 by gcoqueir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-BONUS_NAME = pipex_bonus.c
+BONUS_NAME = pipex_bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -I$(INC)
 INC = ./include
 LIBFT = ./libft
 RM = rm -f
-FILES = srcs/pipex.c \
-		srcs/process.c
+FILES = srcs/pipex.c srcs/process.c
 OBJS = $(FILES:.c=.o)
-BONUS_FILES = srcs/pipex_bonus.C
+BONUS_FILES = srcs/pipex.c
 BONUS_OBJS = $(BONUS_FILES:.c=.o)
 GREEN = \033[1;32m
 
