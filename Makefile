@@ -6,7 +6,7 @@
 #    By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 08:58:42 by gcoqueir          #+#    #+#              #
-#    Updated: 2023/08/07 06:59:40 by gcoqueir         ###   ########.fr        #
+#    Updated: 2023/08/07 18:02:39 by gcoqueir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBFT = ./libft
 RM = rm -f
 FILES = srcs/pipex.c srcs/process.c
 OBJS = $(FILES:.c=.o)
-BONUS_FILES = srcs/pipex.c
+BONUS_FILES = srcs/pipex_bonus.c
 BONUS_OBJS = $(BONUS_FILES:.c=.o)
 GREEN = \033[1;32m
 

@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 08:09:06 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/07 14:28:20 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:02:03 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,23 @@ void	parent_process(int *fd, char **argv, char **envp, t_pipex *pipex)
 void	make_cmd(char **envp, char *command, t_pipex *pipex)
 {
 	int		i;
-	char	*temp;
 
 	pipex->cmd = ft_split(command, ' ');
 	i = -1;
 	while (pipex->cmd[++i] != NULL)
 		pipex->cmd[i] = ft_strtrim(pipex->cmd[i], "'");
-	i = -1;
 	if (ft_strchr(pipex->cmd[0], '/') != NULL)
 		if (execve(pipex->cmd[0], pipex->cmd, envp) == -1)
 			error_check(1, pipex);
+	cmd_search(envp, pipex);
+}
+
+void	cmd_search(char **envp, t_pipex *pipex)
+{
+	int		i;
+	char	*temp;
+
+	i = -1;
 	while (pipex->all_paths[++i] != NULL)
 	{
 		temp = ft_strjoin(pipex->all_paths[i], pipex->cmd[0]);
