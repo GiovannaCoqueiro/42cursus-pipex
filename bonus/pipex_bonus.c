@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 09:07:31 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/08 07:30:06 by gcoqueir         ###   ########.fr       */
+/*   Created: 2023/08/07 18:02:46 by gcoqueir          #+#    #+#             */
+/*   Updated: 2023/08/08 08:45:12 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,50 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
+	int		cmd;
+	int		*fd[2];
 
-	if (argc == 5)
+	if (argc < 5)
+		error_check(1, NULL);
+	if (ft_strncmp("here_doc", argv[1], 8) == 0)
 	{
-		pipex.infile = open(argv[1], O_RDONLY);
-		if (pipex.infile != -1)
-		{
-			pipex.outfile = open(argv[argc - 1], O_TRUNC | O_CREAT
-					| O_WRONLY, 0777);
-			if (pipex.outfile == -1)
-			{
-				close(pipex.infile);
-				error_check(1, NULL);
-			}
-			take_paths(envp, &pipex);
-			pid_init(argv, envp, &pipex);
-			free_tab(pipex.all_paths);
-		}
-		else
-			ft_putendl_fd("Error: No such file or directory", 2);
+		if (argc < 6)
+			error_check(2, NULL);
+		cmd = 3;
+		pipex.outfile = open_file(argv[argc - 1], 3, &pipex);
 	}
 	else
-		ft_putendl_fd("Usage: ./pipex <infile> <cmd1> <cmd2> <outfile>", 2);
-	return (0);
+	{
+		cmd = 2;
+		pipex.infile = open_file(argv[1], 1, &pipex);
+		pipex.outfile = open_file(argv[argc - 1], 2, &pipex);
+		dup2(pipex.infile, STDIN_FILENO);
+	}
+	take_paths(envp, &pipex);
+	while (cmd <= argc - 3)
+		pipe_it(fd, argv[cmd], envp, &pipex);
+	dup2(pipex.outfile, STDOUT_FILENO);
+	make_cmd(envp, cmd, &pipex);
+}
+
+int	open_file(char *file, int mode, t_pipex *pipex)
+{
+	int	fd;
+
+	if (mode == 1)
+		fd = open(file, O_RDONLY);
+	else if (mode == 2)
+		fd = open(file, O_TRUNC | O_CREAT | O_WRONLY, 0777);
+	else if (mode == 3)
+		fd = open(file, O_APPEND | O_CREAT | O_WRONLY, 0777);
+	if (fd == -1)
+	{
+		if (mode == 2)
+			close(pipex->infile);
+		perror("Error");
+		exit(1);
+	}
+	return (fd);
 }
 
 void	take_paths(char **envp, t_pipex *pipex)

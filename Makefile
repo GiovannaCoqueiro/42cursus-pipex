@@ -6,7 +6,7 @@
 #    By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 08:58:42 by gcoqueir          #+#    #+#              #
-#    Updated: 2023/08/07 18:02:39 by gcoqueir         ###   ########.fr        #
+#    Updated: 2023/08/08 07:58:06 by gcoqueir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,13 @@ CFLAGS = -Wall -Wextra -Werror -g -I$(INC)
 INC = ./include
 LIBFT = ./libft
 RM = rm -f
-FILES = srcs/pipex.c srcs/process.c
+FILES = srcs/pipex.c \
+		srcs/process.c \
+		srcs/free_and_finish.c
 OBJS = $(FILES:.c=.o)
-BONUS_FILES = srcs/pipex_bonus.c
+BONUS_FILES = bonus/pipex_bonus.c \
+				bonus/process_bonus.c \
+				bonus/free_and_finish_bonus.c
 BONUS_OBJS = $(BONUS_FILES:.c=.o)
 GREEN = \033[1;32m
 

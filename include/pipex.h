@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:02:03 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/07 18:57:24 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/08 08:44:55 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,8 @@ void	cmd_search(char **envp, t_pipex *pipex);
 
 void	free_tab(char **tab);
 void	error_check(int i, t_pipex *pipex);
+
+int		open_file(char *file, int mode, t_pipex *pipex);
+void	pipe_it(int *fd, char *cmd, char **envp, t_pipex pipex);
 
 #endif
