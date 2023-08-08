@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 07:31:03 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/08 07:31:18 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/08 09:32:14 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ void	error_check(int i, t_pipex *pipex)
 	}
 	if (i == 1)
 		ft_printf("Usage: ./pipex <infile> <cmd1> <cmd...> <outfile>\n");
-	if (i == 2)
+	else if (i == 2)
 		ft_printf("Usage: ./pipex here_doc LIMITER <cmd1> <...> <outfile>\n");
-	if (i == 3)
+	else if (i == 3)
 		ft_putendl_fd("Error: command not found", 2);
 	else
 		perror("Error");
+	if (i == 3 || i == 4)
+		close(pipex->infile);
+	if (i >= 3)
+		close(pipex->outfile);
 	exit(EXIT_FAILURE);
 }

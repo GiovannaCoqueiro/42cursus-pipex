@@ -6,7 +6,7 @@
 #    By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 08:58:42 by gcoqueir          #+#    #+#              #
-#    Updated: 2023/08/08 07:58:06 by gcoqueir         ###   ########.fr        #
+#    Updated: 2023/08/08 09:28:00 by gcoqueir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ FILES = srcs/pipex.c \
 OBJS = $(FILES:.c=.o)
 BONUS_FILES = bonus/pipex_bonus.c \
 				bonus/process_bonus.c \
+				bonus/here_doc_bonus.c \
 				bonus/free_and_finish_bonus.c
 BONUS_OBJS = $(BONUS_FILES:.c=.o)
 GREEN = \033[1;32m

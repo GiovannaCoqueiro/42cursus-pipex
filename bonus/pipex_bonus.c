@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:02:46 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/08 08:45:12 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/08 09:26:40 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 	int		cmd;
-	int		*fd[2];
 
 	if (argc < 5)
 		error_check(1, NULL);
@@ -26,6 +25,7 @@ int	main(int argc, char **argv, char **envp)
 			error_check(2, NULL);
 		cmd = 3;
 		pipex.outfile = open_file(argv[argc - 1], 3, &pipex);
+		here_doc(argv, &pipex);
 	}
 	else
 	{
@@ -36,9 +36,9 @@ int	main(int argc, char **argv, char **envp)
 	}
 	take_paths(envp, &pipex);
 	while (cmd <= argc - 3)
-		pipe_it(fd, argv[cmd], envp, &pipex);
+		pipe_it(argv[cmd++], envp, &pipex);
 	dup2(pipex.outfile, STDOUT_FILENO);
-	make_cmd(envp, cmd, &pipex);
+	make_cmd(envp, argv[cmd], &pipex);
 }
 
 int	open_file(char *file, int mode, t_pipex *pipex)
@@ -49,7 +49,7 @@ int	open_file(char *file, int mode, t_pipex *pipex)
 		fd = open(file, O_RDONLY);
 	else if (mode == 2)
 		fd = open(file, O_TRUNC | O_CREAT | O_WRONLY, 0777);
-	else if (mode == 3)
+	else
 		fd = open(file, O_APPEND | O_CREAT | O_WRONLY, 0777);
 	if (fd == -1)
 	{

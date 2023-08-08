@@ -6,14 +6,15 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 07:47:27 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/08 08:44:31 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/08 09:14:57 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	pipe_it(int *fd, char *cmd, char **envp, t_pipex pipex)
+void	pipe_it(char *cmd, char **envp, t_pipex *pipex)
 {
+	int		fd[2];
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
@@ -22,22 +23,18 @@ void	pipe_it(int *fd, char *cmd, char **envp, t_pipex pipex)
 	if (pid == -1)
 		error_check(4, pipex);
 	if (pid == 0)
-		child_process(fd, cmd, envp, pipex);
+		child(fd, cmd, envp, pipex);
 	else
-		parent_process(fd, cmd, envp, pipex);
+	{
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[1]);
+	}
 }
 
-void	child_process(int *fd, char *cmd, char **envp, t_pipex *pipex)
+void	child(int *fd, char *cmd, char **envp, t_pipex *pipex)
 {
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
-	make_cmd(envp, cmd, pipex);
-}
-
-void	parent_process(int *fd, char *cmd, char **envp, t_pipex *pipex)
-{
-	dup2(fd[0], STDIN_FILENO);
-	close(fd[1]);
 	make_cmd(envp, cmd, pipex);
 }
 
@@ -51,7 +48,7 @@ void	make_cmd(char **envp, char *command, t_pipex *pipex)
 		pipex->cmd[i] = ft_strtrim(pipex->cmd[i], "'");
 	if (ft_strchr(pipex->cmd[0], '/') != NULL)
 		if (execve(pipex->cmd[0], pipex->cmd, envp) == -1)
-			error_check(1, pipex);
+			error_check(4, pipex);
 	cmd_search(envp, pipex);
 }
 
@@ -69,11 +66,11 @@ void	cmd_search(char **envp, t_pipex *pipex)
 			if (execve(temp, pipex->cmd, envp) == -1)
 			{
 				free(temp);
-				error_check(1, pipex);
+				error_check(4, pipex);
 			}
 		}
 		free(temp);
 	}
 	if (pipex->all_paths[i] == NULL)
-		error_check(2, pipex);
+		error_check(3, pipex);
 }
