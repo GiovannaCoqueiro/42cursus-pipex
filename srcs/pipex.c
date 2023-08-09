@@ -6,11 +6,13 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:07:31 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/08 07:30:06 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:22:39 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void	take_paths(char **envp, t_pipex *pipex);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -40,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-void	take_paths(char **envp, t_pipex *pipex)
+static void	take_paths(char **envp, t_pipex *pipex)
 {
 	int		i;
 	char	**temp;

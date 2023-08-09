@@ -6,11 +6,14 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:02:46 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/08 09:26:40 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/09 06:58:04 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static int	open_file(char *file, int mode, t_pipex *pipex);
+static void	take_paths(char **envp, t_pipex *pipex);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -25,7 +28,8 @@ int	main(int argc, char **argv, char **envp)
 			error_check(2, NULL);
 		cmd = 3;
 		pipex.outfile = open_file(argv[argc - 1], 3, &pipex);
-		here_doc(argv, &pipex);
+		// here_doc(argv[2], &pipex);
+		here_doc(argv);
 	}
 	else
 	{
@@ -41,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	make_cmd(envp, argv[cmd], &pipex);
 }
 
-int	open_file(char *file, int mode, t_pipex *pipex)
+static int	open_file(char *file, int mode, t_pipex *pipex)
 {
 	int	fd;
 
@@ -61,7 +65,7 @@ int	open_file(char *file, int mode, t_pipex *pipex)
 	return (fd);
 }
 
-void	take_paths(char **envp, t_pipex *pipex)
+static void	take_paths(char **envp, t_pipex *pipex)
 {
 	int		i;
 	char	**temp;

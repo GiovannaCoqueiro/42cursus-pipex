@@ -6,11 +6,14 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 08:09:06 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/07 19:02:03 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/09 07:02:59 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void	child_process(int *fd, char **argv, char **envp, t_pipex *pipex);
+static void	parent_process(int *fd, char **argv, char **envp, t_pipex *pipex);
 
 void	pid_init(char **argv, char **envp, t_pipex *pipex)
 {
@@ -28,7 +31,7 @@ void	pid_init(char **argv, char **envp, t_pipex *pipex)
 	parent_process(fd, argv, envp, pipex);
 }
 
-void	child_process(int *fd, char **argv, char **envp, t_pipex *pipex)
+static void	child_process(int *fd, char **argv, char **envp, t_pipex *pipex)
 {
 	dup2(fd[1], STDOUT_FILENO);
 	dup2(pipex->infile, STDIN_FILENO);
@@ -36,7 +39,7 @@ void	child_process(int *fd, char **argv, char **envp, t_pipex *pipex)
 	make_cmd(envp, argv[2], pipex);
 }
 
-void	parent_process(int *fd, char **argv, char **envp, t_pipex *pipex)
+static void	parent_process(int *fd, char **argv, char **envp, t_pipex *pipex)
 {
 	dup2(fd[0], STDIN_FILENO);
 	dup2(pipex->outfile, STDOUT_FILENO);

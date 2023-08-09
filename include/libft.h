@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:02:06 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/02 16:04:29 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:19:12 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define UPPER_HEX "0123456789ABCDEF"
 # define LOWER_HEX "0123456789abcdef"
+# define BUFFER_SIZE 42
 
 size_t	ft_strlen(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
@@ -32,6 +33,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+char	*get_next_line(int fd);
 int		ft_printf(const char *str, ...);
 int		print_char(char c);
 int		print_str(char *str);

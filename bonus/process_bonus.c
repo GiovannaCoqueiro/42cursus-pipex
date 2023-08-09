@@ -6,11 +6,13 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 07:47:27 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/08 09:14:57 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:29:02 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void	child(int *fd, char *cmd, char **envp, t_pipex *pipex);
 
 void	pipe_it(char *cmd, char **envp, t_pipex *pipex)
 {
@@ -31,7 +33,7 @@ void	pipe_it(char *cmd, char **envp, t_pipex *pipex)
 	}
 }
 
-void	child(int *fd, char *cmd, char **envp, t_pipex *pipex)
+static void	child(int *fd, char *cmd, char **envp, t_pipex *pipex)
 {
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
