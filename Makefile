@@ -6,7 +6,7 @@
 #    By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 08:58:42 by gcoqueir          #+#    #+#              #
-#    Updated: 2023/08/08 09:28:00 by gcoqueir         ###   ########.fr        #
+#    Updated: 2023/08/09 18:17:07 by gcoqueir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,22 +35,22 @@ all: $(NAME)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@make -C $(LIBFT)
+	@make -C $(LIBFT) --silent
 	@$(CC) $(OBJS) $(CFLAGS) $(LIBFT)/libft.a -o $(NAME)
 
 bonus: $(BONUS_NAME)
 	@echo "$(GREEN)SUCCESS!!"
 
 $(BONUS_NAME): $(BONUS_OBJS)
-	@make -C $(LIBFT)
+	@make -C $(LIBFT) --silent
 	@$(CC) $(BONUS_OBJS) $(CFLAGS) $(LIBFT)/libft.a -o $(BONUS_NAME)
 
 clean:
-	@make clean -C $(LIBFT)
+	@make clean -C $(LIBFT) --silent
 	@$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
-	@make fclean -C $(LIBFT)
+	@make fclean -C $(LIBFT) --silent
 	@$(RM) $(NAME) $(BONUS_NAME)
 
 re: fclean all
