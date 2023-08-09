@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 07:47:27 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/08 13:29:02 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:09:36 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	pipe_it(char *cmd, char **envp, t_pipex *pipex)
 	{
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[1]);
+		waitpid(pid, NULL, WNOHANG);
 	}
 }
 

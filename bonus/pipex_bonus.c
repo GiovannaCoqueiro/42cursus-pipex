@@ -6,7 +6,7 @@
 /*   By: gcoqueir <gcoqueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:02:46 by gcoqueir          #+#    #+#             */
-/*   Updated: 2023/08/09 06:58:04 by gcoqueir         ###   ########.fr       */
+/*   Updated: 2023/08/09 08:28:59 by gcoqueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	main(int argc, char **argv, char **envp)
 			error_check(2, NULL);
 		cmd = 3;
 		pipex.outfile = open_file(argv[argc - 1], 3, &pipex);
-		// here_doc(argv[2], &pipex);
-		here_doc(argv);
+		here_doc(argv[2], &pipex);
 	}
 	else
 	{
