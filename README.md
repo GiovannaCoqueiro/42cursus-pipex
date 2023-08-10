@@ -90,7 +90,7 @@ After cloning the project in your local reposiory you can run some commands you 
 <ul>
 	<li>$> <b>make all:</b> or just <b>make</b> compiles the project</li>
 	<li>$> <b>make clean:</b> deletes the object files created during compilation</li>
-	<li>$> <b>make fclean:</b> executes the <b>clean</b> command and also deletes the libftprintf.a</li>
+	<li>$> <b>make fclean:</b> executes the <b>clean</b> command and also deletes the binary created</li>
 	<li>$> <b>make re:</b> executes the <b>fclean</b> command followed by the <b>all</b> command</li>
 	<li>$> <b>make bonus:</b> compiles the project</li>
 	<li>$> <b>make re:</b> executes the <b>fclean</b> command followed by the <b>rebonus</b> command</li>
