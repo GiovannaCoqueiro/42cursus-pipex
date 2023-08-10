@@ -30,10 +30,10 @@
   Code a program, in C, that reproduces, in C, the behavior of the character pipe in the unix system and redirect some file descriptors.
 </p>
 <h6 align=left>
-  Exemple
+  Usage
 </h6>
 <p>
-	./pipex infile cmd1 cmdN outfile
+	$>./pipex infile cmd1 cmdN outfile
 </p>
 <ul>
 	<li><b>infile:</b> a existing file to use as input for our program.</li>
@@ -51,7 +51,7 @@
 	The program must handle multiple pipelines and support heredoc function.
 </p>
 <h6 align=left>
-  Multiple pipes exemple
+  Multiple pipes usage
 </h6>
 <p>
 	./pipex_bonus infile cmd1 cmdN outfile
@@ -64,7 +64,7 @@
 </ul>
 
 <h6 align=left>
-  Heredoc exemple
+  Heredoc usage
 </h6>
 <p>
 	./pipex_bonus here_doc LIMITER cmd1 cmdN outfile
