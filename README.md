@@ -33,7 +33,7 @@
   Exemple
 </h6>
 <p>
-	./pipex <infile> <cmd1> <cmdN> <outfile>
+	./pipex infile cmd1 cmdN outfile
 </p>
 <ul>
 	<li><b>infile:</b> a existing file to use as input for our program.</li>
@@ -54,7 +54,7 @@
   Multiple pipes exemple
 </h6>
 <p>
-	./pipex_bonus <infile> <cmd1> <cmdN> <outfile>
+	./pipex_bonus infile cmd1 cmdN outfile
 </p>
 <ul>
 	<li><b>infile:</b> a existing file to use as input for our program.</li>
@@ -67,7 +67,7 @@
   Heredoc exemple
 </h6>
 <p>
-	./pipex_bonus here_doc <LIMITER> <cmd1> <cmdN> <outfile>
+	./pipex_bonus here_doc LIMITER cmd1 cmdN outfile
 </p>
 <ul>
 	<li><b>LIMITER:</b> a string to finish the append process.</li>You can also create and run any map, if it follows the requirements.
